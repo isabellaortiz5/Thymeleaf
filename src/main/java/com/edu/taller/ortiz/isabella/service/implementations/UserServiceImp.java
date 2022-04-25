@@ -1,13 +1,15 @@
 package com.edu.taller.ortiz.isabella.service.implementations;
 
 import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import com.edu.taller.ortiz.isabella.repository.interfaces.UserRepository;
 import com.edu.taller.ortiz.isabella.user.UserEntity;
 import com.edu.taller.ortiz.isabella.user.UserType;
+import com.edu.taller.ortiz.isabella.service.interfaces.UserService;
 
 @Service
-public class UserServiceImp {
+public class UserServiceImp implements UserService {
 	private UserRepository userRepo;
 
 	public UserServiceImp(UserRepository userRepo) {

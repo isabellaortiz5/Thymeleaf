@@ -1,6 +1,7 @@
 package com.edu.taller.ortiz.isabella;
 
 import org.springframework.boot.SpringApplication;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,7 +17,7 @@ public class Application {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext c = SpringApplication.run(Application.class, args);
 		
-		UserServiceImp u = c.getBean(UserServiceImp.class);
+		UserService u = c.getBean(UserServiceImp.class);
 		
 		//USER ADMINISTRATOR
 		

@@ -17,7 +17,7 @@ public class Application {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext c = SpringApplication.run(Application.class, args);
 		
-		UserService u = c.getBean(UserServiceImp.class);
+		UserService us = c.getBean(UserServiceImp.class);
 		
 		//USER ADMINISTRATOR
 		
@@ -27,7 +27,7 @@ public class Application {
 		u1.setPassword("{noop}admin");
 		u1.setType(UserType.ADMINISTRATOR);
 		
-		u.save(u1);
+		us.save(u1);
 		
 		//USER OPERATOR
 		
@@ -37,7 +37,7 @@ public class Application {
 		u2.setPassword("{noop}operator");
 		u2.setType(UserType.OPERATOR);
 		
-		u.save(u2);
+		us.save(u2);
 	}
 
 }

@@ -17,10 +17,10 @@ public class UserServiceImp implements UserService {
 		this.userRepo = userRepo;
 	}
 	
-	public <S extends UserEntity> S save(S user) {
-		if (user.getId() == 0 || user.getPassword() == null) {
+	public <Ue extends UserEntity> Ue save(Ue user) {
+		if (user.getId() == 0 || user.getPassword().equals(null)) {
 			if(user.getId() == 0) {
-				throw new IllegalArgumentException("The id user is empty.");
+				throw new IllegalArgumentException("User id is empty.");
 			} else if(user.getPassword() == null) {
 				throw new IllegalArgumentException("The password is empty.");
 			} 
@@ -39,7 +39,7 @@ public class UserServiceImp implements UserService {
 
 	public void editPerson(long id, String userName, String password, UserType type) {
 		if (id == 0 || password == null) {
-			throw new IllegalArgumentException("Verify one of the arguments is not valid.");
+			throw new IllegalArgumentException("Invalid arguments.");
 		}
 		UserEntity ur = userRepo.findById(id).get();
 		ur.setUsername(userName);

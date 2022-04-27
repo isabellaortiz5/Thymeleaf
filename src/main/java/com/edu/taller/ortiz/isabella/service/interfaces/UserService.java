@@ -6,7 +6,7 @@ import com.edu.taller.ortiz.isabella.user.UserEntity;
 import com.edu.taller.ortiz.isabella.user.UserType;
 
 public interface UserService {
-	public <S extends UserEntity> S save(S user);
+	public <Ue extends UserEntity> Ue save(Ue user);
 
 	public Optional<UserEntity> findById(long id);
 

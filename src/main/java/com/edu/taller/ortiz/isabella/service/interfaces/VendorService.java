@@ -6,5 +6,6 @@ public interface VendorService {
 	
 	public boolean add(Vendor v);
 	public boolean edit(Vendor v);
+	public Iterable<Vendor> findAll();
 
 }

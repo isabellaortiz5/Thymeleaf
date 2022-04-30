@@ -49,4 +49,9 @@ public class VendorServiceImp implements VendorService {
 		return true;
 	}
 
+	@Override
+	public Iterable<Vendor> findAll() {
+		return vr.findAll();
+	}
+
 }

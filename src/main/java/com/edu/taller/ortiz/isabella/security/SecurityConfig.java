@@ -19,9 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		httpSecurity.cors().disable().csrf().disable().authorizeRequests()
 		//admin permissions.
-			// product-vendors.
-		.antMatchers("/product-vendors*").permitAll().antMatchers("/product-vendors/add/**")
-		.hasRole(UserType.ADMINISTRATOR.toString()).antMatchers("/product-vendors/edit/**")
+			// vendors.
+		.antMatchers("/vendors*").permitAll().antMatchers("/vendors/add/**")
+		.hasRole(UserType.ADMINISTRATOR.toString()).antMatchers("/vendors/edit/**")
 		.hasRole(UserType.ADMINISTRATOR.toString())
 		
 			// ship-method.

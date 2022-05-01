@@ -1,7 +1,6 @@
 package com.edu.taller.ortiz.isabella.service.implementations;
 
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 import com.edu.taller.ortiz.isabella.repository.interfaces.UserRepository;
 import com.edu.taller.ortiz.isabella.user.UserEntity;
@@ -13,7 +12,6 @@ public class UserServiceImp implements UserService {
 	private UserRepository userRepo;
 
 	public UserServiceImp(UserRepository userRepo) {
-
 		this.userRepo = userRepo;
 	}
 	
@@ -45,7 +43,6 @@ public class UserServiceImp implements UserService {
 		ur.setUsername(userName);
 		ur.setPassword(password);
 		ur.setType(type);
-		
 		save(ur);
 	}
 }

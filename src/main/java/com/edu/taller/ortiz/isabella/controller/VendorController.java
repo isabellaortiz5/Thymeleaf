@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.edu.taller.ortiz.isabella.service.interfaces.VendorService;
 
 @Controller
-@RequestMapping("product-vendors")
-public class ProductVendorController {
+@RequestMapping("vendors")
+public class VendorController {
 
 	private VendorService vendorService;
 
 	@Autowired
-	public ProductVendorController(VendorService vendorService) {
+	public VendorController(VendorService vendorService) {
 
 		this.vendorService = vendorService;
 
@@ -25,39 +25,39 @@ public class ProductVendorController {
 
 	@GetMapping("")
 	public String index(Model model) {
-		model.addAttribute("productvendors", vendorService.findAll());
-		return "/product-vendors/index";
+		model.addAttribute("vendors", vendorService.findAll());
+		return "/vendors/index";
 	}
 	
 	
 	@GetMapping("/edit/{id}")
-	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
+	public String editVendor(Model model, @PathVariable("id") Integer id) {
 
-		return "product-vendors/edit";
+		return "vendors/edit";
 	}
 
 	@PostMapping("/edit/{id}")
-	public String postEditProduct(Model model) {
+	public String postEditVendor(Model model) {
 
-		return "product-vendors/edit";
+		return "vendors/edit";
 	}
 	@GetMapping("/add")
-	public String addProductvendor(Model model) {
-		return "product-vendors/add";
+	public String addVendor(Model model) {
+		return "vendors/add";
 	}
 
 	@PostMapping("/add")
-	public String addProductvendorPost(Model model) {
-		return "product-vendors/add";
+	public String addVendorPost(Model model) {
+		return "vendors/add";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String deleteProductvendor(Model model) {
-		return "product-vendors/index";
+		return "vendors/index";
 	}
 	@GetMapping("/{id}")
-	public String getProductvendor(Model model, @PathVariable("id") Integer id) {
+	public String getVendor(Model model, @PathVariable("id") Integer id) {
 
-		return "product-vendors/information";
+		return "vendors/information";
 	}
 }

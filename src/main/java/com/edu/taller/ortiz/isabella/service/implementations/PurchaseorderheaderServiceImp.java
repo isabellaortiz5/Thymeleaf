@@ -73,4 +73,9 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 		return true;
 	}
 
+	@Override
+	public Iterable<Purchaseorderheader> findAll() {
+		return hr.findAll();
+	}
+
 }

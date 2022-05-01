@@ -6,5 +6,5 @@ public interface PurchaseorderdetailService {
 	
 	public boolean add(Purchaseorderdetail d);
 	public boolean edit(Purchaseorderdetail d);
-
+	public Iterable<Purchaseorderdetail> findAll();
 }

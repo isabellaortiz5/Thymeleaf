@@ -50,4 +50,10 @@ public class PurchaseorderdetailServiceImp implements PurchaseorderdetailService
 		return true;
 	}
 
+	@Override
+	public Iterable<Purchaseorderdetail> findAll() {
+		return dr.findAll();
+	}
+	
+
 }

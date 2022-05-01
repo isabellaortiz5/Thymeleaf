@@ -6,5 +6,5 @@ public interface ShipmethodService {
 	
 	public boolean add(Shipmethod s);
 	public boolean edit(Shipmethod s);
-
+	public Iterable<Shipmethod> findAll();
 }

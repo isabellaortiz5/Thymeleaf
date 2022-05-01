@@ -6,5 +6,5 @@ public interface PurchaseorderheaderService {
 	
 	public boolean add(Purchaseorderheader h);
 	public boolean edit(Purchaseorderheader h);
-
+	public Iterable<Purchaseorderheader> findAll();
 }

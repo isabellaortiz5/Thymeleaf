@@ -28,27 +28,25 @@ public class VendorServiceImp implements VendorService {
 		if (v == null) 
 			return false;
 		if (v.getCreditrating().intValue() < 0 ||
-//				!v.getPurchasingwebserviceurl().startsWith("a") ||
+				!v.getPurchasingwebserviceurl().startsWith("https") ||
 				v.getName() == null)
 			return false;
-		vr.save(v);
-		if (!br.existsById(v.getBusinessentityid()))
-			return false;
 		
+		vr.save(v);
 		return true;
 	}
 
 	@Override
 	public boolean edit(Vendor v) {
-		if (v == null) 
-			return false;
+		Optional<Vendor> realVendor = vr.findById(v.getBusinessentityid());
+		Vendor vendor = realVendor.get();
 		if (v.getCreditrating().intValue() < 0 ||
-//				!v.getPurchasingwebserviceurl().startsWith("https") ||
+				!v.getPurchasingwebserviceurl().startsWith("https") ||
 				v.getName() == null)
 			return false;
-		if (!br.existsById(v.getBusinessentityid()))
-			return false;
+		vr.deleteById(vendor.getBusinessentityid());
 		vr.save(v);
+		
 		return true;
 	}
 
@@ -62,6 +60,12 @@ public class VendorServiceImp implements VendorService {
 	public Optional<Vendor> findById(Integer id) {
 
 		return vr.findById(id);
+	}
+
+	@Override
+	public void delete(Integer id) {
+		vr.deleteById(id);
+		
 	}
 
 }

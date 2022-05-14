@@ -17,9 +17,48 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div class="container my-5">
-		<h2>Product vendor info</h2>
-		
-	</div>
+<div class="container my-5">
+    <h2>Vendor Info</h2>
+    <p>
+        <a href="/" class="btn btn-primary">Principal Menu</a>
+    </p>
+    <div>
+        <h5>Id</h5>
+        <p th:text="${vendors.businessentityid}"></p>
+    </div>
+   <div>
+        <h5>Account number</h5>
+        <p th:text="${vendors.accountnumber}"></p>
+    </div>
+    <div>
+        <h5>Active flag</h5>
+        <p th:text="${vendors.activeflag}"></p>
+    </div>
+    <div>
+        <h5>Credit rating</h5>
+        <p th:text="${vendors.creditrating}"></p>
+    </div>
+    <div>
+        <h5>Modified date</h5>
+        <p th:text="${vendors.modifieddate}"></p>
+    </div>
+    <div>
+        <h5>Name</h5>
+        <p th:text="${vendors.name}"></p>
+    </div>
+    <div>
+        <h5>Preferred vendor status</h5>
+        <p th:text="${vendors.preferredvendorstatus}"></p>
+    </div>
+    <div>
+        <h5>Purchasing web serviceurl</h5>
+        <p th:text="${vendors.purchasingwebserviceurl}"></p>
+    </div>
+    
+    <p>
+        <a th:href="@{/vendors/edit/{id}(id=${vendors.businessentityid})}" class="btn btn-primary">Edit</a>
+    </p>
+   <a href="/vendors"><i class="fas fa-home ml-2"></i>Return</a>
+</div>
 </body>
 </html>

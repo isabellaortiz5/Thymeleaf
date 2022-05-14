@@ -17,9 +17,63 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div class="container my-5">
-		<h2>Edit Product vendor</h2>
-		
-	</div>
+<div class="container my-1">
+<h2 class="mb-5">Edit Vendor</h2>
+	<div class="row">
+		<div class="col-md-5">
+			<form action="#" th:object="${vendors}" th:action="@{/vendors/edit/{id}(id=${vendors.businessentityid})}" method="post">			
+				<div>
+                	<input type="hidden" th:field="*{businessentityid}"/>
+            	</div>
+				<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Account number</label>
+                	<input type="number" class="form-control" id="accountnumber" placeholder="Account number" th:field="*{accountnumber}"/>
+                	<span th:if="${#fields.hasErrors('accountnumber')}" th:errors="*{accountnumber}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Active flag</label>
+                	<input type="text" class="form-control" id="activeflag" placeholder="Active flag" th:field="*{activeflag}"/>
+                	<span th:if="${#fields.hasErrors('activeflag')}" th:errors="*{activeflag}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Credit rating</label>
+                	<input type="number" class="form-control" id="creditrating" placeholder="Credit rating" th:field="*{creditrating}"/>
+                	<span th:if="${#fields.hasErrors('creditrating')}" th:errors="*{creditrating}" class="text-danger"></span>
+              	</div>
+				<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Modified date</label>
+                	<input type="date" min="0" class="form-control" id="modifieddate" placeholder="Modified date" th:field="*{modifieddate}"/>
+                	<span th:if="${#fields.hasErrors('modifieddate')}" th:errors="*{modifieddate}" class="text-danger"></span>
+              	</div>
+
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Name</label>
+                	<input type="text" min="0" class="form-control" id="name" placeholder="Name" th:field="*{name}"/>
+                	<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Preferred vendor status</label>
+                	<input type="text" class="form-control" id="preferredvendorstatus" placeholder="Preferred vendor status" th:field="*{preferredvendorstatus}"/>
+                	<span th:if="${#fields.hasErrors('preferredvendorstatus')}" th:errors="*{preferredvendorstatus}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Purchasing web serviceurl</label>
+                	<input type="text" class="form-control" id="purchasingwebserviceurl" placeholder="Purchasing web serviceurl" th:field="*{purchasingwebserviceurl}"/>
+                	<span th:if="${#fields.hasErrors('purchasingwebserviceurl')}" th:errors="*{purchasingwebserviceurl}" class="text-danger"></span>
+              	</div>
+
+          	 	<div class="col-md-6 mt-3">
+                	<input type="submit" name="action" class="btn btn-primary" value="Edit"/>
+              	</div>
+              	
+              	
+              	<div class="col-md-6 mt-3">
+                	<input type="reset" class="btn btn-secondary" value="Clear" />
+				</div>
+          </form>
+        </div>
+      </div>
+      	<a href="/vendors"><i class="fas fa-home ml-2"></i>Vendors</a>
+    </div>
 </body>
 </html>

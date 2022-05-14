@@ -8,6 +8,7 @@ public interface VendorService {
 	
 	public boolean add(Vendor v);
 	public boolean edit(Vendor v);
+	public void delete(Integer id);
 	public Iterable<Vendor> findAll();
 	public Optional<Vendor> findById(Integer id);
 

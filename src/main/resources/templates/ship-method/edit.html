@@ -1,25 +1,76 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Product vendor</title>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Edit Ship Method</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-	crossorigin="anonymous">
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
 	<div class="container my-5">
-		<h2>Edit ship method</h2>
-		
+		<h2 class="mb-5">Edit Ship Method</h2>
+		<div class="row">
+			<div class="col-md-5">
+				<form action="#" th:object="${shipmethod}"
+					th:action="@{/ship-method/edit/{id}(id=${shipmethod.shipmethodid})}" method="post">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="shipmethodid" class="col-form-label">ID</label> <input
+								type="text" th:field="*{shipmethodid}" class="form-control" id="shipmethodid"
+								placeholder="shipmethodid" disabled> <span
+								th:if="${#fields.hasErrors('shipmethodid')}" th:errors="*{shipmethodid}"
+								class="text-danger"></span>
+						</div>
+						
+						<div class="form-group col-md-6">
+							<label for="modifieddate" class="col-form-label">Modified Date</label> <input
+								type="date" th:field="*{modifieddate}" class="form-control" id="modifieddate"
+								placeholder="Modified Date"> <span
+								th:if="${#fields.hasErrors('modifieddate')}" th:errors="*{modifieddate}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="rowguid" class="col-form-label">Row Guid</label> <input
+								th:name="rowguid" type="number" th:value="${rowguid}" class="form-control" id="rowguid"
+								placeholder="Row Guid"> <span
+								th:if="${#fields.hasErrors('rowguid')}" th:errors="*{rowguid}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="shipbase" class="col-form-label">Ship Base</label> <input
+								th:name="shipbase" type="number" th:value="${shipbase}" class="form-control" id="shipbase"
+								placeholder="Ship Base"> <span
+								th:if="${#fields.hasErrors('shipbase')}" th:errors="*{shipbase}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="shiprate" class="col-form-label">Ship Rate</label> <input
+								th:name="shiprate" type="number" th:value="${shiprate}" class="form-control" id="shiprate"
+								placeholder="Ship Rate"> <span
+								th:if="${#fields.hasErrors('shiprate')}" th:errors="*{shiprate}"
+								class="text-danger"></span>
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-md-4 mt-3">
+							<input type="submit" name="action" class="btn btn-primary" value="Edit Ship Method">
+						</div>
+						<div class="col-md-3 mt-3">
+							<input type="reset" class="btn btn-secondary" value="Clear">
+						</div>
+						<div class="col-md-3 mt-3">
+							<input type="submit" name="action" class="btn btn-secondary" value="Cancel">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

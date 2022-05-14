@@ -1,8 +1,9 @@
 package com.edu.taller.ortiz.isabella.model.prchasing;
 
 import java.io.Serializable;
+
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * The persistent class for the shipmethod database table.
@@ -26,8 +29,9 @@ public class Shipmethod implements Serializable {
 	@SequenceGenerator(name = "SHIPMETHOD_SHIPMETHODID_GENERATOR", allocationSize = 1, sequenceName = "SHIPMETHOD_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SHIPMETHOD_SHIPMETHODID_GENERATOR")
 	private Integer shipmethodid;
-
-	private Timestamp modifieddate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate modifieddate;
 
 	private String name;
 
@@ -51,7 +55,7 @@ public class Shipmethod implements Serializable {
 		return purchaseorderheader;
 	}
 
-	public Timestamp getModifieddate() {
+	public LocalDate getModifieddate() {
 		return this.modifieddate;
 	}
 
@@ -86,7 +90,7 @@ public class Shipmethod implements Serializable {
 		return purchaseorderheader;
 	}
 
-	public void setModifieddate(Timestamp modifieddate) {
+	public void setModifieddate(LocalDate modifieddate) {
 		this.modifieddate = modifieddate;
 	}
 

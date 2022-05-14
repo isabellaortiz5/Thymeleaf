@@ -11,7 +11,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private LoggingAccessDeniedHandler accessDeniedHandler;
-
+ 
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {

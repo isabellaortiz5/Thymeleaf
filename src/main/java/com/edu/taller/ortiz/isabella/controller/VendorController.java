@@ -1,14 +1,20 @@
 package com.edu.taller.ortiz.isabella.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 import com.edu.taller.ortiz.isabella.service.interfaces.VendorService;
+import com.edu.taller.ortiz.isabella.user.UserEntity;
 
 @Controller
 @RequestMapping("vendors")
@@ -32,23 +38,30 @@ public class VendorController {
 	
 	@GetMapping("/edit/{id}")
 	public String editVendor(Model model, @PathVariable("id") Integer id) {
-
+		Optional<Vendor> vendor = vendorService.findById(id);
+		if (vendor.isEmpty())
+			throw new IllegalArgumentException("Invalid vendor Id:" + id);
+		model.addAttribute("vendor", vendor.get());
 		return "vendors/edit";
 	}
+	
 
 	@PostMapping("/edit/{id}")
-	public String postEditVendor(Model model) {
-
-		return "vendors/edit";
+	public String postEditVendor(Model model, @PathVariable("id") Integer id, @ModelAttribute Vendor vendor) {
+		vendorService.edit(vendor);
+		return "redirect:/vendors";
 	}
 	@GetMapping("/add")
 	public String addVendor(Model model) {
+		model.addAttribute("vendor", new Vendor());
 		return "vendors/add";
 	}
-
+	
 	@PostMapping("/add")
-	public String addVendorPost(Model model) {
-		return "vendors/add";
+	public String addVendorPost(Model model, @ModelAttribute Vendor vendor) {
+		System.out.println(vendor.getAccountnumber());
+		vendorService.add(vendor);
+		return "redirect:/vendors";
 	}
 	
 	@GetMapping("/delete/{id}")

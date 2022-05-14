@@ -1,6 +1,8 @@
 package com.edu.taller.ortiz.isabella.service.implementations;
 
 import java.math.BigDecimal;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.edu.taller.ortiz.isabella.model.prchasing.Shipmethod;
@@ -46,6 +48,11 @@ public class ShipmethodServiceImp implements ShipmethodService {
 	@Override
 	public Iterable<Shipmethod> findAll() {
 		return sr.findAll();
+	}
+
+	@Override
+	public Optional<Shipmethod> findById(Integer id) {
+		return sr.findById(id);
 	}
 
 }

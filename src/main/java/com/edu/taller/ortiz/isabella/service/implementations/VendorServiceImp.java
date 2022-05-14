@@ -1,5 +1,7 @@
 package com.edu.taller.ortiz.isabella.service.implementations;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +28,13 @@ public class VendorServiceImp implements VendorService {
 		if (v == null) 
 			return false;
 		if (v.getCreditrating().intValue() < 0 ||
-				!v.getPurchasingwebserviceurl().startsWith("https") ||
+//				!v.getPurchasingwebserviceurl().startsWith("a") ||
 				v.getName() == null)
 			return false;
+		vr.save(v);
 		if (!br.existsById(v.getBusinessentityid()))
 			return false;
-		vr.save(v);
+		
 		return true;
 	}
 
@@ -40,7 +43,7 @@ public class VendorServiceImp implements VendorService {
 		if (v == null) 
 			return false;
 		if (v.getCreditrating().intValue() < 0 ||
-				!v.getPurchasingwebserviceurl().startsWith("https") ||
+//				!v.getPurchasingwebserviceurl().startsWith("https") ||
 				v.getName() == null)
 			return false;
 		if (!br.existsById(v.getBusinessentityid()))
@@ -49,9 +52,16 @@ public class VendorServiceImp implements VendorService {
 		return true;
 	}
 
+
 	@Override
 	public Iterable<Vendor> findAll() {
 		return vr.findAll();
+	}
+
+	@Override
+	public Optional<Vendor> findById(Integer id) {
+
+		return vr.findById(id);
 	}
 
 }

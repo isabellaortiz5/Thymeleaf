@@ -1,13 +1,17 @@
 package com.edu.taller.ortiz.isabella.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.edu.taller.ortiz.isabella.model.prchasing.Shipmethod;
 import com.edu.taller.ortiz.isabella.service.interfaces.ShipmethodService;
 
 @Controller
@@ -25,38 +29,50 @@ public class ShipMethodController {
 
 	@GetMapping("")
 	public String index(Model model) {
-		model.addAttribute("productvendors", shipmethodService.findAll());
+		model.addAttribute("shipmethod", shipmethodService.findAll());
 		return "ship-method/index";
 	}
 	
 	
 	@GetMapping("/edit/{id}")
-	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
-
+	public String editShipmethod(Model model, @PathVariable("id") Integer id) {
+		Optional<Shipmethod> s = shipmethodService.findById(id);
+		
+		if (s.isEmpty())
+			throw new IllegalArgumentException("Invalid Shipmethod Id:" + id);
+		
+		model.addAttribute("shipmethod", s.get());
+		
 		return "ship-method/edit";
 	}
-
+	
 	@PostMapping("/edit/{id}")
-	public String postEditProduct(Model model) {
-
-		return "ship-method/edit";
+	public String postEditShipmethod(Model model, @PathVariable Integer id, @ModelAttribute("shipmethod") Shipmethod shipmethod) {
+		shipmethodService.edit(shipmethod);
+		return "redirect:/ship-method";
+		
 	}
+	
+	
 	@GetMapping("/add")
-	public String addProductvendor(Model model) {
+	public String addShipmethod(Model model) {
+		model.addAttribute("shipmethod", new Shipmethod());
 		return "ship-method/add";
 	}
 
 	@PostMapping("/add")
-	public String addProductvendorPost(Model model) {
-		return "ship-method/add";
+	public String addWorkOrderPost(Model model, @ModelAttribute Shipmethod shipmethod) {
+		shipmethodService.add(shipmethod);
+		return "redirect:/ship-method";
 	}
+
 	
 	@GetMapping("/delete/{id}")
-	public String deleteProductvendor(Model model) {
+	public String deleteShipmethod(Model model) {
 		return "ship-method/index";
 	}
 	@GetMapping("/{id}")
-	public String getProductvendor(Model model, @PathVariable("id") Integer id) {
+	public String getShipmethod(Model model, @PathVariable("id") Integer id) {
 
 		return "ship-method/information";
 	}

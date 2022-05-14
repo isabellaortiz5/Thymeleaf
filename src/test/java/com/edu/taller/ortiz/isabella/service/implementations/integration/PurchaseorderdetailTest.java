@@ -27,8 +27,6 @@ class PurchaseorderdetailTest {
 	
 	private Purchaseorderdetail d;
 	
-
-
 	private PurchaseorderdetailService ds;
 	
 	@Autowired

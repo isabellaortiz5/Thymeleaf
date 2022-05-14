@@ -5,7 +5,7 @@
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Product vendor</title>
+<title>Vendor</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -17,9 +17,63 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div class="container my-5">
-		<h2>Product vendors index</h2>
-		
+	<div th:switch="${vendor}" class="container my-5">
+		<div class="row">
+			<div class="col-md-10">
+				<h2 th:case="null">No persons yet!</h2>
+				<div th:case="*">
+					<h2 class="my-5">Vendor</h2>
+					<table class="table table-striped table-responsive-md">
+						<thead>
+							<tr>
+								<th>Businessentity ID</th>
+								<th>Account Number</th>
+								<th>Active Flag</th>
+								<th>Credit Rating</th>
+								<th>Modified Date</th>
+								<th>Name</th>
+								<th>Preferred Vendor Statu</th>
+								<th>Search</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="v : ${vendor}">
+								<td class="text-info" th:text="${v.businessentityid}"></td>
+								<td class="text-info" th:text="${v.accountnumber}"></td>
+								<td class="text-info" th:text="${v.activeflag}"></td>
+								<td class="text-info" th:text="${v.creditrating}"></td>
+								<td class="text-info" th:text="${v.modifieddate}"></td>
+								<td class="text-info" th:text="${v.name}"></td>
+								<td class="text-info" th:text="${v.preferredvendorstatus}"></td>
+									
+								<td><a
+									th:href="@{/vendors/{id}(id=${v.businessentityid})}"
+									class="btn btn-primary"><i
+										class="fas fa-search ml-2"></i></a></td>
+								<td><a
+									th:href="@{vendors/edit/{id}(id=${v.businessentityid})}"
+									class="btn btn-primary"><i
+										class="fas fa-user-edit ml-2"></i></a></td>
+								<td><a
+								
+									th:href="@{/vendors/delete/{id}(id=${v.businessentityid})}"
+									class="btn btn-primary"><i
+										class="fas fa-user-times ml-2"></i>
+										</a></td>
+							</tr>
+								
+						</tbody>
+					</table>
+				</div>
+				<p class="my-7">
+					<a href="/vendors/add" class="btn btn-primary"><i
+						class="fas fa-user-plus ml-2"></i></a>
+				</p>
+			</div>
+		</div>
+		<a href="/"><i class="fas fa-home ml-2"></i> Go back to home</a>
 	</div>
 </body>
 </html>

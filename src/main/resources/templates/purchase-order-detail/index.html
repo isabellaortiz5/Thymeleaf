@@ -17,9 +17,67 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div class="container my-5">
-		<h2>Purchase order detail index</h2>
-		
+	<div th:switch="${purchaseOrderDetail}" class="container my-5">
+		<div class="row">
+			<div class="col-md-10">
+				<h2 th:case="null">No Purchase Order Details Added.</h2>
+				<div th:case="*">
+					<h2 class="my-5">Purchase Order Detail</h2>
+					<table class="table table-striped table-responsive-md">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Due date</th>
+								<th>Modified date</th>
+								<th>Order quantity</th>
+								<th>Product id</th>
+								<th>Received quantity</th>
+								<th>Rejected quantity</th>
+								<th>Unit price</th>
+								<th>Search</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+
+
+						</thead>
+						<tbody>
+							<tr th:each="p : ${purchaseOrderDetail}">
+								<td class="text-info" th:text="${p.purchaseorderid}"></td>
+								<td class="text-info" th:text="${p.duedate}"></td>
+								<td class="text-info" th:text="${p.modifieddate}"></td>
+								<td class="text-info" th:text="${p.orderqty}"></td>
+								<td class="text-info" th:text="${p.productid}"></td>
+								<td class="text-info" th:text="${p.receivedqty}"></td>
+								<td class="text-info" th:text="${p.rejectedqty}"></td>
+								<td class="text-info" th:text="${p.unitprice}"></td>
+									
+								<td><a
+									th:href="@{/purchase-order-detail/{id}(id=${p.purchaseorderid})}"
+									class="btn btn-primary"><i
+										class="fas fa-search ml-2"></i></a></td>
+								<td><a
+									th:href="@{/purchase-order-detail/edit/{id}(id=${p.purchaseorderid})}"
+									class="btn btn-primary"><i
+										class="fas fa-user-edit ml-2"></i></a></td>
+								<td><a
+								
+									th:href="@{/purchase-order-detail/delete/{id}(id=${p.purchaseorderid})}"
+									class="btn btn-primary"><i
+										class="fas fa-user-times ml-2"></i>
+										</a></td>
+							</tr>
+								
+						</tbody>
+					</table>
+				</div>
+				<p class="my-7">
+					<a href="/purchase-order-detail/add" class="btn btn-primary"><i
+						class="fas fa-user-plus ml-2"></i></a>
+				</p>
+			</div>
+		</div>
+		<a href="/"><i class="fas fa-home ml-2"></i>Principal menu</a>
 	</div>
 </body>
 </html>

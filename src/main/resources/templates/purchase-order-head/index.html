@@ -17,9 +17,70 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div class="container my-5">
-		<h2>Purchase order heads index</h2>
-		
+	<div th:switch="${purchaseorderheader}" class="container my-5">
+		<div class="row">
+			<div class="col-md-10">
+				<h2 th:case="null">No Purchase order head Added.</h2>
+				<div th:case="*">
+					<h2 class="my-5">Purchase order header</h2>
+					<table class="table table-striped table-responsive-md">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Employee ID</th>
+								<th>Freight</th>
+								<th>Modified date</th>
+								<th>Order date</th>
+								<th>Revision Number</th>
+								<th>Ship date</th>
+								<th>status</th>
+								<th>Sub-total</th>
+								<th>Tax ammount</th>
+								<th>Search</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+
+
+						</thead>
+						<tbody>
+							<tr th:each="p : ${purchaseorderheader}">
+								<td class="text-info" th:text="${p.purchaseorderid}"></td>
+								<td class="text-info" th:text="${p.employeeid}"></td>
+								<td class="text-info" th:text="${p.freight}"></td>
+								<td class="text-info" th:text="${p.modifieddate}"></td>
+								<td class="text-info" th:text="${p.orderdate}"></td>
+								<td class="text-info" th:text="${p.revisionnumber}"></td>
+								<td class="text-info" th:text="${p.shipdate}"></td>
+								<td class="text-info" th:text="${p.status}"></td>
+								<td class="text-info" th:text="${p.subtotal}"></td>
+								<td class="text-info" th:text="${p.taxamt}"></td>	
+								<td><a
+									th:href="@{/purchase-order-head/{id}(id=${p.purchaseorderid})}"
+									class="btn btn-primary"><i
+										class="fas fa-search ml-2"></i></a></td>
+								<td><a
+									th:href="@{/purchase-order-head/edit/{id}(id=${p.purchaseorderid})}"
+									class="btn btn-primary"><i
+										class="fas fa-user-edit ml-2"></i></a></td>
+								<td><a
+								
+									th:href="@{/purchase-order-head/delete/{id}(id=${p.purchaseorderid})}"
+									class="btn btn-primary"><i
+										class="fas fa-user-times ml-2"></i>
+										</a></td>
+							</tr>
+								
+						</tbody>
+					</table>
+				</div>
+				<p class="my-7">
+					<a href="/vendors/add" class="btn btn-primary"><i
+						class="fas fa-user-plus ml-2"></i></a>
+				</p>
+			</div>
+		</div>
+		<a href="/"><i class="fas fa-home ml-2"></i>Principal menu</a>
 	</div>
 </body>
 </html>

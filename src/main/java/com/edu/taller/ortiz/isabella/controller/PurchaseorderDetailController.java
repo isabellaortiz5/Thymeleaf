@@ -1,14 +1,19 @@
 package com.edu.taller.ortiz.isabella.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderdetail;
+import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 import com.edu.taller.ortiz.isabella.service.interfaces.PurchaseorderdetailService;
 
 @Controller
@@ -23,42 +28,56 @@ public class PurchaseorderDetailController {
 		this.podService = podService;
 
 	}
-
+	
+	
 	@GetMapping("")
 	public String index(Model model) {
-		model.addAttribute("productvendors", podService.findAll());
+		Iterable<Purchaseorderdetail> purchaseOrderDetail = podService.findAll();
+		if(purchaseOrderDetail.iterator().hasNext()){
+			model.addAttribute("purchaseOrderDetail", purchaseOrderDetail);
+		}
 		return "/purchase-order-detail/index";
 	}
 	
 	
 	@GetMapping("/edit/{id}")
-	public String editProductvendor(Model model, @PathVariable("id") Integer id) {
-
+	public String editPurchaseOrderDetail(Model model, @PathVariable("id") Integer id) {
+		Optional<Purchaseorderdetail> purchaseOrderDetail = podService.findById(id);
+		Purchaseorderdetail purchaseOrderDetails = purchaseOrderDetail.get();
+		model.addAttribute("purchaseOrderDetail", purchaseOrderDetails);
+	
 		return "purchase-order-detail/edit";
 	}
 
 	@PostMapping("/edit/{id}")
-	public String postEditProduct(Model model) {
+	public String postEditPod(Model model, @PathVariable Integer id, @ModelAttribute Purchaseorderdetail purchaseorderdetail) {
+		podService.edit(purchaseorderdetail);
 
-		return "purchase-order-detail/edit";
+		return "redirect:/purchase-order-detail";
 	}
 	@GetMapping("/add")
-	public String addProductvendor(Model model) {
+	public String addPurchaseOrderDetail(Model model) {
+		model.addAttribute("pruchaseOrderDetail", new Purchaseorderdetail());
 		return "purchase-order-detail/add";
 	}
 
 	@PostMapping("/add")
-	public String addProductvendorPost(Model model) {
+	public String addPurchaseOrderDetailPost(Model model, @ModelAttribute Purchaseorderdetail purchaseorderdetail) {
+		podService.add(purchaseorderdetail);
 		return "purchase-order-detail/add";
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String deleteProductvendor(Model model) {
+	public String deletePurchaseOrderDetail(Model model, @PathVariable Integer id) {
+		podService.delete(id);
 		return "purchase-order-detail/index";
 	}
 	@GetMapping("/{id}")
-	public String getProductvendor(Model model, @PathVariable("id") Integer id) {
-
+	public String getPurchaseOrderDetail(Model model, @PathVariable("id") Integer id) {
+		Optional<Purchaseorderdetail> purchaseOrderDetail = podService.findById(id);
+		Purchaseorderdetail purchaseOrderDetails = purchaseOrderDetail.get();
+		model.addAttribute("purchaseOrderDetail", purchaseOrderDetails);
+	
 		return "purchase-order-detail/information";
 	}
 }

@@ -2,8 +2,12 @@ package com.edu.taller.ortiz.isabella.model.prchasing;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -25,13 +29,16 @@ public class Purchaseorderheader implements Serializable {
 
 	private BigDecimal freight;
 
-	private Timestamp modifieddate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate modifieddate;
 
-	private Timestamp orderdate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate orderdate;
 
 	private Integer revisionnumber;
 
-	private Timestamp shipdate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate shipdate;
 
 	private Integer status;
 
@@ -80,19 +87,19 @@ public class Purchaseorderheader implements Serializable {
 		this.freight = freight;
 	}
 
-	public Timestamp getModifieddate() {
+	public LocalDate getModifieddate() {
 		return this.modifieddate;
 	}
 
-	public void setModifieddate(Timestamp modifieddate) {
+	public void setModifieddate(LocalDate modifieddate) {
 		this.modifieddate = modifieddate;
 	}
 
-	public Timestamp getOrderdate() {
+	public LocalDate getOrderdate() {
 		return this.orderdate;
 	}
 
-	public void setOrderdate(Timestamp orderdate) {
+	public void setOrderdate(LocalDate orderdate) {
 		this.orderdate = orderdate;
 	}
 
@@ -104,11 +111,11 @@ public class Purchaseorderheader implements Serializable {
 		this.revisionnumber = revisionnumber;
 	}
 
-	public Timestamp getShipdate() {
+	public LocalDate getShipdate() {
 		return this.shipdate;
 	}
 
-	public void setShipdate(Timestamp shipdate) {
+	public void setShipdate(LocalDate shipdate) {
 		this.shipdate = shipdate;
 	}
 

@@ -41,13 +41,8 @@ class PurchaseorderheaderTest {
 		this.pr = pr;
 	}
 	
-	@SuppressWarnings("deprecation")
 	void setUp() {
 		h = new Purchaseorderheader();
-		int year = Calendar.getInstance().getTime().getYear();
-		int month = Calendar.getInstance().getTime().getMonth();
-		int day = Calendar.getInstance().getTime().getDay();
-		h.setOrderdate(new Timestamp(year, month, day, 0, 0, 0, 0));
 		h.setSubtotal(new BigDecimal(0));
 		Businessentity b = new Businessentity();
 		b.setBusinessentityid(1);

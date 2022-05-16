@@ -1,11 +1,14 @@
 package com.edu.taller.ortiz.isabella.service.implementations;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderdetail;
+import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderheader;
+import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 import com.edu.taller.ortiz.isabella.repository.interfaces.PurchaseorderdetailRepository;
 import com.edu.taller.ortiz.isabella.repository.interfaces.PurchaseorderheaderRepository;
 import com.edu.taller.ortiz.isabella.service.interfaces.PurchaseorderdetailService;
@@ -36,8 +39,8 @@ public class PurchaseorderdetailServiceImp implements PurchaseorderdetailService
 
 	@Override
 	public boolean edit(Purchaseorderdetail d) {
-		if (d == null)
-			return false;
+		Optional<Purchaseorderdetail> realPurchaseO = dr.findById(d.getId());
+		Purchaseorderdetail purchaseorderdetail = realPurchaseO.get();
 		if (d.getOrderqty().compareTo(0) < 0 ||
 				d.getUnitprice().compareTo(BigDecimal.ZERO) < 0)
 			return false;
@@ -45,6 +48,7 @@ public class PurchaseorderdetailServiceImp implements PurchaseorderdetailService
 				!dr.existsById(d.getId()))
 			return false;
 		
+		dr.deleteById(purchaseorderdetail.getId());
 		dr.save(d);
 		
 		return true;
@@ -53,6 +57,17 @@ public class PurchaseorderdetailServiceImp implements PurchaseorderdetailService
 	@Override
 	public Iterable<Purchaseorderdetail> findAll() {
 		return dr.findAll();
+	}
+
+	@Override
+	public void delete(Integer id) {
+		dr.deleteById(id);
+		
+	}
+
+	@Override
+	public Optional<Purchaseorderdetail> findById(Integer id) {
+		return dr.findById(id);
 	}
 	
 

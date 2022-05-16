@@ -1,9 +1,13 @@
 package com.edu.taller.ortiz.isabella.service.implementations;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderheader;
+import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 import com.edu.taller.ortiz.isabella.repository.interfaces.EmployeeRepository;
 import com.edu.taller.ortiz.isabella.repository.interfaces.PersonRepository;
 import com.edu.taller.ortiz.isabella.repository.interfaces.PurchaseorderheaderRepository;
@@ -23,21 +27,11 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 		this.pr = pr;
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean add(Purchaseorderheader h) {
 		if (h == null)
 			return false;
-		int year = Calendar.getInstance().getTime().getYear();
-		int month = Calendar.getInstance().getTime().getMonth();
-		int day = Calendar.getInstance().getTime().getDay();
-		int y = h.getOrderdate().getYear();
-		int m = h.getOrderdate().getMonth()+1; //A FECHA DE 27/03/2022 SIRVE ASI
-		int d = h.getOrderdate().getDay()-1;
-		if (y != year ||
-				m != month ||
-				d != day ||
-				h.getSubtotal().compareTo(BigDecimal.ZERO) < 0)
+		if (h.getSubtotal().compareTo(BigDecimal.ZERO) < 0)
 			return false;
 		if (!er.existsById(h.getEmployeeid()) ||
 				!pr.existsById(h.getEmployeeid()))
@@ -46,26 +40,19 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 		return true;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean edit(Purchaseorderheader h) {
 		if (h == null)
 			return false;
-		int year = Calendar.getInstance().getTime().getYear();
-		int month = Calendar.getInstance().getTime().getMonth();
-		int day = Calendar.getInstance().getTime().getDay();
-		int y = h.getOrderdate().getYear();
-		int m = h.getOrderdate().getMonth()+1; //A FECHA DE 27/03/2022 SIRVE ASI
-		int d = h.getOrderdate().getDay()-1;
-		if (y != year ||
-				m != month ||
-				d != day ||
-				h.getSubtotal().compareTo(BigDecimal.ZERO) < 0)
+		Optional<Purchaseorderheader> realPoHead = hr.findById(h.getPurchaseorderid());
+		Purchaseorderheader poHead = realPoHead.get();
+		if (h.getSubtotal().compareTo(BigDecimal.ZERO) < 0)
 			return false;
 		if (!er.existsById(h.getEmployeeid()) ||
 				!pr.existsById(h.getEmployeeid()) ||
 				!hr.existsById(h.getPurchaseorderid()))
 			return false;
+		hr.deleteById(poHead.getPurchaseorderid());
 		hr.save(h);
 		return true;
 	}
@@ -73,6 +60,18 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 	@Override
 	public Iterable<Purchaseorderheader> findAll() {
 		return hr.findAll();
+	}
+	
+	@Override
+	public Optional<Purchaseorderheader> findById(Integer id) {
+
+		return hr.findById(id);
+	}
+
+	@Override
+	public void delete(Integer id) {
+		hr.deleteById(id);
+		
 	}
 
 }

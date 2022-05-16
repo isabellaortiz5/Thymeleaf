@@ -17,9 +17,60 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div class="container my-5">
-		<h2>Add Purchase order detail</h2>
-		
-	</div>
+<div class="container my-1">
+<h2 class="mb-5">Add Purchase order detail</h2>
+	<div class="row">
+		<div class="col-md-5">
+			<form action="#" th:object="${purchaseOrderDetail}" th:action="@{/purchase-order-detail/add}" method="post">			
+				<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Due date</label>
+                	<input type="date" class="form-control" id="duedate" placeholder="Due date" th:field="*{duedate}"/>
+                	<span th:if="${#fields.hasErrors('duedate')}" th:errors="*{duedate}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Modified date</label>
+                	<input type="date" class="form-control" id="modifieddate" placeholder="Modified date" th:field="*{modifieddate}"/>
+                	<span th:if="${#fields.hasErrors('modifieddate')}" th:errors="*{modifieddate}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Order quantity</label>
+                	<input type="number" min="0" class="form-control" id="orderqty" placeholder="Order quantity" th:field="*{orderqty}"/>
+                	<span th:if="${#fields.hasErrors('orderqty')}" th:errors="*{orderqty}" class="text-danger"></span>
+              	</div>
+				<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Product id</label>
+                	<input type="number" min="0" class="form-control" id="productid" placeholder="Product id" th:field="*{productid}"/>
+                	<span th:if="${#fields.hasErrors('productid')}" th:errors="*{productid}" class="text-danger"></span>
+              	</div>
+
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Received quantity</label>
+                	<input type="number" min="0" class="form-control" id="receivedqty" placeholder="Received quantity" th:field="*{receivedqty}"/>
+                	<span th:if="${#fields.hasErrors('receivedqty')}" th:errors="*{receivedqty}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Rejected quantity</label>
+                	<input type="number" min=0 class="form-control" id="rejectedqty" placeholder="Rejected quantity" th:field="*{rejectedqty}"/>
+                	<span th:if="${#fields.hasErrors('rejectedqty')}" th:errors="*{rejectedqty}" class="text-danger"></span>
+              	</div>
+              	<div class="form-group col-md-6">
+                	<label for="visible" class="col-form-label">Unit price</label>
+                	<input type="number" min=0 class="form-control" id="unitprice" placeholder="Unit price" th:field="*{unitprice}"/>
+                	<span th:if="${#fields.hasErrors('unitprice')}" th:errors="*{unitprice}" class="text-danger"></span>
+              	</div>
+
+          	 	<div class="col-md-6 mt-3">
+                	<input type="submit" name="action" class="btn btn-primary" value="Add"/>
+              	</div>
+              	
+              	
+              	<div class="col-md-6 mt-3">
+                	<input type="reset" class="btn btn-secondary" value="Clear" />
+				</div>
+          </form>
+        </div>
+      </div>
+      	<a href="/purchase-order-detail"><i class="fas fa-home ml-2"></i>Purchase order detail</a>
+    </div>
 </body>
 </html>

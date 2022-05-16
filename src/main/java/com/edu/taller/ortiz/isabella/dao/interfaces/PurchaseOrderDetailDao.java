@@ -11,6 +11,6 @@ public interface PurchaseOrderDetailDao {
 	public void delete (Purchaseorderdetail purchaseorderdetail);
 	public Purchaseorderdetail findById(Integer purchaseorderdetailId);
 	public List<Purchaseorderdetail> findAll();
-	public List<Purchaseorderdetail> findByProductId(BigDecimal unitprice);
+	public List<Purchaseorderdetail> findByUnitPrice(BigDecimal unitprice);
 	public List<Purchaseorderdetail> findByProductId(Integer productid);
 }

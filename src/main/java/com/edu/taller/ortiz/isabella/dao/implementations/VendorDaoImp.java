@@ -67,14 +67,20 @@ public class VendorDaoImp implements VendorDao{
 
 	@Override
 	public List<Vendor> findByCreditrating(Integer creditrating) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpql = "Select vendor from Vendor vendor where vendor.creditrating=:creditRating";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("creditRating", creditrating);
+		
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Vendor> findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpql = "Select vendor from Vendor vendor where vendor.name=:name";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("name", name);
+		
+		return query.getResultList();
 	}
 
 }

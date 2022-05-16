@@ -66,15 +66,21 @@ public class PurchaseOrderHeaderDaoImp implements PurchaseOrderHeaderDao{
 	}
 
 	@Override
-	public List<Purchaseorderheader> findByShipmethodId(Integer shipmethodId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Purchaseorderheader> findByShipmethodId(Integer shipmethodid) {
+		String jpql = "Select purchaseorderheader from Purchaseorderheader purchaseorderheader where purchaseorderheader.shipmethodid=:shipMethodID";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("shipMethodID", shipmethodid);
+		
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Purchaseorderheader> findByVendorId(Integer vendorId) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpql = "Select purchaseorderheader from Purchaseorderheader purchaseorderheader where purchaseorderheader.vendorid=:vendorID";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("vendorID", vendorId);
+		
+		return query.getResultList();
 	}
 
 }

@@ -66,16 +66,24 @@ public class PurchaseOrderDetailDaoImp implements PurchaseOrderDetailDao{
 		return entityManager.createQuery(query).getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Purchaseorderdetail> findByProductId(BigDecimal unitprice) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Purchaseorderdetail> findByUnitPrice(BigDecimal unitprice) {
+		String jpql = "Select purchaseorderdetail from Purchaseorderdetail purchaseorderdetail where purchaseorderdetail.unitprice=:unitPrice";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("unitPrice", unitprice);	
+		
+		return query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Purchaseorderdetail> findByProductId(Integer productid) {
-		// TODO Auto-generated method stub
-		return null;
+		String jpql = "Select purchaseorderdetail from Purchaseorderdetail purchaseorderdetail where purchaseorderdetail.productid=:productID";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("productID", productid);	
+		
+		return query.getResultList();
 	}
 
 }

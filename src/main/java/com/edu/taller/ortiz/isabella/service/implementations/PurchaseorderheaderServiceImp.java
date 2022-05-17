@@ -6,6 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
+
+import com.edu.taller.ortiz.isabella.dao.interfaces.PurchaseOrderHeaderDao;
+import com.edu.taller.ortiz.isabella.model.hr.Employee;
+import com.edu.taller.ortiz.isabella.model.person.Person;
+import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderdetail;
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderheader;
 import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 import com.edu.taller.ortiz.isabella.repository.interfaces.EmployeeRepository;
@@ -16,13 +21,13 @@ import com.edu.taller.ortiz.isabella.service.interfaces.PurchaseorderheaderServi
 @Service
 public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService {
 
-	private PurchaseorderheaderRepository hr;
+	private PurchaseOrderHeaderDao pohDAO;
 	private EmployeeRepository er;
 	private PersonRepository pr;
 	
 	@Autowired
-	public PurchaseorderheaderServiceImp(EmployeeRepository er, PersonRepository pr,PurchaseorderheaderRepository hr) {
-		this.hr = hr;
+	public PurchaseorderheaderServiceImp(EmployeeRepository er, PersonRepository pr,PurchaseOrderHeaderDao pohDAO) {
+		this.pohDAO = pohDAO;
 		this.er = er;
 		this.pr = pr;
 	}
@@ -36,7 +41,7 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 		if (!er.existsById(h.getEmployeeid()) ||
 				!pr.existsById(h.getEmployeeid()))
 			return false;
-		hr.save(h);
+		pohDAO.save(h);
 		return true;
 	}
 
@@ -44,33 +49,39 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 	public boolean edit(Purchaseorderheader h) {
 		if (h == null)
 			return false;
-		Optional<Purchaseorderheader> realPoHead = hr.findById(h.getPurchaseorderid());
-		Purchaseorderheader poHead = realPoHead.get();
+		Purchaseorderheader poh = pohDAO.findById(h.getPurchaseorderid());
+		Optional<Employee> employee = er.findById(h.getEmployeeid());
+		Optional<Person> person = pr.findById(employee.get().getBusinessentityid());
+				//findById(d.getPurchaseorderheader().getPurchaseorderid());
+
 		if (h.getSubtotal().compareTo(BigDecimal.ZERO) < 0)
 			return false;
 		if (!er.existsById(h.getEmployeeid()) ||
 				!pr.existsById(h.getEmployeeid()) ||
-				!hr.existsById(h.getPurchaseorderid()))
+				!pohDAO.existsById(h.getPurchaseorderid()))
 			return false;
-		hr.deleteById(poHead.getPurchaseorderid());
-		hr.save(h);
+		
+		poh.setEmployeeid(employee.get().getBusinessentityid());
+		
 		return true;
 	}
 
 	@Override
 	public Iterable<Purchaseorderheader> findAll() {
-		return hr.findAll();
+		return pohDAO.findAll();
 	}
 	
 	@Override
-	public Optional<Purchaseorderheader> findById(Integer id) {
+	public Purchaseorderheader findById(Integer id) {
 
-		return hr.findById(id);
+		return pohDAO.findById(id);
 	}
 
 	@Override
 	public void delete(Integer id) {
-		hr.deleteById(id);
+		Purchaseorderheader poh = pohDAO.findById(id);
+
+		pohDAO.delete(poh);
 		
 	}
 

@@ -42,9 +42,8 @@ public class PurchaseorderDetailController {
 	
 	@GetMapping("/edit/{id}")
 	public String editPurchaseOrderDetail(Model model, @PathVariable("id") Integer id) {
-		Optional<Purchaseorderdetail> purchaseOrderDetail = podService.findById(id);
-		Purchaseorderdetail purchaseOrderDetails = purchaseOrderDetail.get();
-		model.addAttribute("purchaseOrderDetail", purchaseOrderDetails);
+		Purchaseorderdetail purchaseOrderDetail = podService.findById(id);
+		model.addAttribute("purchaseOrderDetail", purchaseOrderDetail);
 	
 		return "purchase-order-detail/edit";
 	}

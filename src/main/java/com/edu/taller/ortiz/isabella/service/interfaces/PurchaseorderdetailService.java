@@ -11,6 +11,6 @@ public interface PurchaseorderdetailService {
 	public boolean edit(Purchaseorderdetail d);
 	public void delete(Integer id);
 	public Iterable<Purchaseorderdetail> findAll();
-	public Optional<Purchaseorderdetail> findById(Integer id);
+	public Purchaseorderdetail findById(Integer id);
 
 }

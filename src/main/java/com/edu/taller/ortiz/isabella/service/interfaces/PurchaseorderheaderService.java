@@ -9,6 +9,6 @@ public interface PurchaseorderheaderService {
 	public boolean add(Purchaseorderheader h);
 	public boolean edit(Purchaseorderheader h);
 	public Iterable<Purchaseorderheader> findAll();
-	Optional<Purchaseorderheader> findById(Integer id);
-	void delete(Integer id);
+	public Purchaseorderheader findById(Integer id);
+	public void delete(Integer id);
 }

@@ -3,8 +3,6 @@ package com.edu.taller.ortiz.isabella.service.implementations.integration;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

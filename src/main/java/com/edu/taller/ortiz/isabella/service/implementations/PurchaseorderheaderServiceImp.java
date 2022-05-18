@@ -41,7 +41,7 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 		if (e.isEmpty()) 
 			return false;
 		Optional<Person> p = pr.findById(e.get().getBusinessentityid());
-		if (e.isEmpty()) 
+		if (p.isEmpty()) 
 			return false;
 		
 		h.setEmployeeid(e.get().getBusinessentityid());
@@ -56,7 +56,6 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 			return false;
 		Purchaseorderheader poh = pohDAO.findById(h.getPurchaseorderid());
 		Optional<Employee> employee = er.findById(h.getEmployeeid());
-		Optional<Person> person = pr.findById(employee.get().getBusinessentityid());
 				//findById(d.getPurchaseorderheader().getPurchaseorderid());
 
 		if (h.getSubtotal().compareTo(BigDecimal.ZERO) < 0)

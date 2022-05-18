@@ -25,8 +25,7 @@ class PurchaseorderheaderDaoTest {
 		p = new Purchaseorderheader();
 		p.setFreight(BigDecimal.valueOf(3.0));
 		p.setRevisionnumber(12);
-
-		
+	
 
 	}
 	

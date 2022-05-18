@@ -1,7 +1,5 @@
 package com.edu.taller.ortiz.isabella.service.interfaces;
 
-import java.util.Optional;
-
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderheader;
 
 public interface PurchaseorderheaderService {

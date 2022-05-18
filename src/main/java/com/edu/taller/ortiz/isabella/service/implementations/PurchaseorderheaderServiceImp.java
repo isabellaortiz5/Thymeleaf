@@ -1,26 +1,21 @@
 package com.edu.taller.ortiz.isabella.service.implementations;
 import java.math.BigDecimal;
-import java.util.Calendar;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import com.edu.taller.ortiz.isabella.dao.interfaces.PurchaseOrderHeaderDao;
 import com.edu.taller.ortiz.isabella.model.hr.Employee;
 import com.edu.taller.ortiz.isabella.model.person.Person;
-import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderdetail;
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderheader;
-import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 import com.edu.taller.ortiz.isabella.repository.interfaces.EmployeeRepository;
 import com.edu.taller.ortiz.isabella.repository.interfaces.PersonRepository;
-import com.edu.taller.ortiz.isabella.repository.interfaces.PurchaseorderheaderRepository;
 import com.edu.taller.ortiz.isabella.service.interfaces.PurchaseorderheaderService;
 
 @Service
 public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService {
-
 	private PurchaseOrderHeaderDao pohDAO;
 	private EmployeeRepository er;
 	private PersonRepository pr;
@@ -41,6 +36,16 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 		if (!er.existsById(h.getEmployeeid()) ||
 				!pr.existsById(h.getEmployeeid()))
 			return false;
+		
+		Optional<Employee> e = er.findById(h.getEmployeeid());
+		if (e.isEmpty()) 
+			return false;
+		Optional<Person> p = pr.findById(e.get().getBusinessentityid());
+		if (e.isEmpty()) 
+			return false;
+		
+		h.setEmployeeid(e.get().getBusinessentityid());
+		
 		pohDAO.save(h);
 		return true;
 	}
@@ -62,6 +67,20 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 			return false;
 		
 		poh.setEmployeeid(employee.get().getBusinessentityid());
+		poh.setFreight(h.getFreight());
+		poh.setModifieddate(h.getModifieddate());
+		poh.setOrderdate(h.getOrderdate());
+		poh.setPurchaseorderdetails(h.getPurchaseorderdetails());
+		poh.setPurchaseorderid(h.getPurchaseorderid());
+		poh.setRevisionnumber(h.getRevisionnumber());
+		poh.setShipdate(h.getShipdate());
+		poh.setShipmethod(h.getShipmethod());
+		poh.setStatus(h.getStatus());
+		poh.setSubtotal(h.getSubtotal());
+		poh.setTaxamt(h.getTaxamt());
+		poh.setVendor(h.getVendor());
+		
+		pohDAO.update(poh);
 		
 		return true;
 	}
@@ -73,16 +92,12 @@ public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService
 	
 	@Override
 	public Purchaseorderheader findById(Integer id) {
-
 		return pohDAO.findById(id);
 	}
 
 	@Override
 	public void delete(Integer id) {
-		Purchaseorderheader poh = pohDAO.findById(id);
-
-		pohDAO.delete(poh);
-		
+		pohDAO.delete(id);
 	}
 
 }

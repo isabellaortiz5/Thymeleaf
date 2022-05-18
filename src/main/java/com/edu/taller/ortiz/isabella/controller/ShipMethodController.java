@@ -1,7 +1,5 @@
 package com.edu.taller.ortiz.isabella.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,12 +34,12 @@ public class ShipMethodController {
 	
 	@GetMapping("/edit/{id}")
 	public String editShipmethod(Model model, @PathVariable("id") Integer id) {
-		Optional<Shipmethod> s = shipmethodService.findById(id);
+		Shipmethod s = shipmethodService.findById(id);
 		
-		if (s.isEmpty())
+		if (s == null)
 			throw new IllegalArgumentException("Invalid Shipmethod Id:" + id);
 		
-		model.addAttribute("shipmethod", s.get());
+		model.addAttribute("shipmethod", s);
 		
 		return "ship-method/edit";
 	}

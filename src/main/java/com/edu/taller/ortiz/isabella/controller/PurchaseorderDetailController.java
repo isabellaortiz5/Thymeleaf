@@ -1,7 +1,5 @@
 package com.edu.taller.ortiz.isabella.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderdetail;
-import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 import com.edu.taller.ortiz.isabella.service.interfaces.PurchaseorderdetailService;
 
 @Controller
@@ -73,9 +70,8 @@ public class PurchaseorderDetailController {
 	}
 	@GetMapping("/{id}")
 	public String getPurchaseOrderDetail(Model model, @PathVariable("id") Integer id) {
-		Optional<Purchaseorderdetail> purchaseOrderDetail = podService.findById(id);
-		Purchaseorderdetail purchaseOrderDetails = purchaseOrderDetail.get();
-		model.addAttribute("purchaseOrderDetail", purchaseOrderDetails);
+		Purchaseorderdetail purchaseOrderDetail = podService.findById(id);
+		model.addAttribute("purchaseOrderDetail", purchaseOrderDetail);
 	
 		return "purchase-order-detail/information";
 	}

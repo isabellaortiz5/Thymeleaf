@@ -47,8 +47,9 @@ public class PurchaseOrderDetailDaoImp implements PurchaseOrderDetailDao{
 	
 	@Transactional
 	@Override
-	public void delete(Purchaseorderdetail purchaseorderdetail) {
+	public void delete(Integer purchaseorderdetailId) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Purchaseorderdetail purchaseorderdetail = entityManager.find(Purchaseorderdetail.class, purchaseorderdetailId);
 		entityManager.getTransaction().begin();
 		entityManager.remove(purchaseorderdetail);
 		entityManager.getTransaction().commit();

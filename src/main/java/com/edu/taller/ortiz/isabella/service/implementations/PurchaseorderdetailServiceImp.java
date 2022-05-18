@@ -82,8 +82,7 @@ public class PurchaseorderdetailServiceImp implements PurchaseorderdetailService
 
 	@Override
 	public void delete(Integer id) {
-		Purchaseorderdetail pod = podDAO.findById(id);
-		podDAO.delete(pod);
+		podDAO.delete(id);
 		
 	}
 

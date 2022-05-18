@@ -45,8 +45,10 @@ public class PurchaseOrderHeaderDaoImp implements PurchaseOrderHeaderDao{
 	
 	@Transactional
 	@Override
-	public void delete(Purchaseorderheader purchaseorderheader) {
+	public void delete(Integer purchaseorderheaderId) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Purchaseorderheader purchaseorderheader = entityManager.find(Purchaseorderheader.class, purchaseorderheaderId);
+		
 		entityManager.getTransaction().begin();
 		entityManager.remove(purchaseorderheader);
 		entityManager.getTransaction().commit();

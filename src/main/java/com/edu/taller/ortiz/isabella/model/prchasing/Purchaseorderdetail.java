@@ -2,7 +2,6 @@ package com.edu.taller.ortiz.isabella.model.prchasing;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;

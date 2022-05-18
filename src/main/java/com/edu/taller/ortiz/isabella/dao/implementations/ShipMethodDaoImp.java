@@ -1,18 +1,14 @@
 package com.edu.taller.ortiz.isabella.dao.implementations;
 
 import java.util.List;
-
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.edu.taller.ortiz.isabella.dao.interfaces.ShipMethodDao;
 import com.edu.taller.ortiz.isabella.model.prchasing.Shipmethod;
 
@@ -45,8 +41,9 @@ public class ShipMethodDaoImp implements ShipMethodDao{
 	
 	@Transactional
 	@Override
-	public void delete(Shipmethod shipmethod) {
+	public void delete(Integer shipmethodId) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Shipmethod shipmethod = entityManager.find(Shipmethod.class, shipmethodId);
 		entityManager.getTransaction().begin();
 		entityManager.remove(shipmethod);
 		entityManager.getTransaction().commit();
@@ -80,5 +77,14 @@ public class ShipMethodDaoImp implements ShipMethodDao{
 		String query = "Select shipmethod from Shipmethod shipmethod";
 		return entityManager.createQuery(query).getResultList();
 	}
-
+	
+	@Override
+	public boolean existsById(Integer shipmethodId) {
+		Shipmethod sm = findById(shipmethodId);
+		if (sm == null) {
+			return false;
+		}
+		return true;
+	}
+	
 }

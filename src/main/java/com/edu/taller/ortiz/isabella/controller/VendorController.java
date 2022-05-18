@@ -1,7 +1,5 @@
 package com.edu.taller.ortiz.isabella.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,23 +8,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
-import com.edu.taller.ortiz.isabella.service.interfaces.VendorService;
-import com.edu.taller.ortiz.isabella.user.UserEntity;
+import com.edu.taller.ortiz.isabella.service.implementations.BusinessentityServiceImp;
+import com.edu.taller.ortiz.isabella.service.implementations.VendorServiceImp;
 
 @Controller
 @RequestMapping("vendors")
 public class VendorController {
 
-	private VendorService vendorService;
-
+	private VendorServiceImp vendorService;
+	private BusinessentityServiceImp bs;
+	
 	@Autowired
-	public VendorController(VendorService vendorService) {
-
+	public VendorController(VendorServiceImp vendorService, BusinessentityServiceImp bs) {
 		this.vendorService = vendorService;
-
+		this.bs = bs;
 	}
 
 	@GetMapping("")
@@ -43,21 +40,23 @@ public class VendorController {
 	
 	@GetMapping("/edit/{id}")
 	public String editVendor(Model model, @PathVariable("id") Integer id) {
-		Optional<Vendor> vendors = vendorService.findById(id);
-		Vendor vendor = vendors.get();
+		Vendor vendor = vendorService.findById(id);
 		model.addAttribute("vendors", vendor);
+		model.addAttribute("businessentity", bs.findAll());
 		
 		return "vendors/edit";
 	}
 
 	@PostMapping("/edit/{id}")
 	public String postEditVendor(Model model, @PathVariable Integer id, @ModelAttribute Vendor vendor) {
+		vendor.setBusinessentityid(id);
 		vendorService.edit(vendor);
 		return "redirect:/vendors";
 	}
 	@GetMapping("/add")
 	public String addVendor(Model model) {
 		model.addAttribute("vendors", new Vendor());
+		model.addAttribute("businessentity", bs.findAll());
 		return "vendors/add";
 	}
 
@@ -74,8 +73,7 @@ public class VendorController {
 	}
 	@GetMapping("/{id}")
 	public String getVendor(Model model, @PathVariable("id") Integer id) {
-		Optional<Vendor> vendors = vendorService.findById(id);
-		Vendor vendor = vendors.get();
+		Vendor vendor = vendorService.findById(id);
 		model.addAttribute("vendors", vendor);
 		return "vendors/information";
 	}

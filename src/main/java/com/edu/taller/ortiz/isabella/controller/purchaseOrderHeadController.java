@@ -1,7 +1,5 @@
 package com.edu.taller.ortiz.isabella.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderheader;
-import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 import com.edu.taller.ortiz.isabella.service.interfaces.PurchaseorderheaderService;
 
 @Controller
@@ -42,9 +39,8 @@ public class purchaseOrderHeadController {
 	
 	@GetMapping("/edit/{id}")
 	public String editPoHead(Model model, @PathVariable("id") Integer id) {
-		Optional<Purchaseorderheader> poHead = purchaseorderheaderService.findById(id);
-		Purchaseorderheader purchaseorderhead = poHead.get();
-		model.addAttribute("purchaseorderheader", purchaseorderhead);
+		Purchaseorderheader poHead = purchaseorderheaderService.findById(id);
+		model.addAttribute("purchaseorderheader", poHead);
 		
 		return "purchase-order-head/edit";
 	}
@@ -73,9 +69,8 @@ public class purchaseOrderHeadController {
 	}
 	@GetMapping("/{id}")
 	public String getPoHead(Model model, @PathVariable("id") Integer id) {
-		Optional<Purchaseorderheader> poHead = purchaseorderheaderService.findById(id);
-		Purchaseorderheader purchaseorderhead = poHead.get();
-		model.addAttribute("purchaseorderheader", purchaseorderhead);
+		Purchaseorderheader poHead = purchaseorderheaderService.findById(id);
+		model.addAttribute("purchaseorderheader", poHead);
 		return "purchase-order-head/information";
 	}
 }

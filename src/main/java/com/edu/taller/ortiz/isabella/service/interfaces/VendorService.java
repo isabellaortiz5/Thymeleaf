@@ -1,6 +1,5 @@
 package com.edu.taller.ortiz.isabella.service.interfaces;
 
-import java.util.Optional;
 
 import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 
@@ -10,6 +9,6 @@ public interface VendorService {
 	public boolean edit(Vendor v);
 	public void delete(Integer id);
 	public Iterable<Vendor> findAll();
-	public Optional<Vendor> findById(Integer id);
+	public Vendor findById(Integer id);
 
 }

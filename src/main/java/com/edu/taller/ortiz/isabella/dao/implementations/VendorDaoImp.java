@@ -43,8 +43,11 @@ public class VendorDaoImp implements VendorDao{
 	
 	@Transactional
 	@Override
-	public void delete(Vendor vendor) {
+	public void delete(Integer vendorId) {
+		
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Vendor vendor = entityManager.find(Vendor.class, vendorId);
+		
 		entityManager.getTransaction().begin();
 		entityManager.remove(vendor);
 		entityManager.getTransaction().commit();

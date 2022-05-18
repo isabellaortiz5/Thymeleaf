@@ -21,44 +21,29 @@ import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderheader;
 public class PurchaseOrderHeaderDaoImp implements PurchaseOrderHeaderDao{
 	
 	@PersistenceUnit
-	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
 	
 	@Override
 	public Purchaseorderheader save(Purchaseorderheader purchaseorderheader) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		entityManager.persist(purchaseorderheader);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		return purchaseorderheader;
 	}
 	
 	@Override
 	public Purchaseorderheader update(Purchaseorderheader  purchaseorderheader) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		entityManager.merge(purchaseorderheader);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		return purchaseorderheader;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Integer purchaseorderheaderId) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		Purchaseorderheader purchaseorderheader = entityManager.find(Purchaseorderheader.class, purchaseorderheaderId);
-		
-		entityManager.getTransaction().begin();
-		entityManager.remove(purchaseorderheader);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		entityManager.remove(purchaseorderheaderId);
 	}
 
 	@Override
 	public Purchaseorderheader findById(Integer purchaseorderheaderId) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select purchaseorderheader from Purchaseorderheader purchaseorderheader where purchaseorderheader.purchaseorderid=:id";
+		String jpql = "Select p from Purchaseorderheader p where p.purchaseorderid=:id";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("id", purchaseorderheaderId);
 		
@@ -77,16 +62,14 @@ public class PurchaseOrderHeaderDaoImp implements PurchaseOrderHeaderDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Purchaseorderheader> findAll() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String query = "Select purchaseorderheader from Purchaseorderheader purchaseorderheader";
+		String query = "Select p from Purchaseorderheader p";
 		return entityManager.createQuery(query).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Purchaseorderheader> findByShipmethodId(Integer shipmethodid) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select purchaseorderheader from Purchaseorderheader purchaseorderheader where purchaseorderheader.shipmethodid=:shipMethodID";
+		String jpql = "Select p from Purchaseorderheader p where p.shipmethodid=:shipMethodID";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("shipMethodID", shipmethodid);
 		
@@ -96,8 +79,7 @@ public class PurchaseOrderHeaderDaoImp implements PurchaseOrderHeaderDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Purchaseorderheader> findByVendorId(Integer vendorId) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select purchaseorderheader from Purchaseorderheader purchaseorderheader where purchaseorderheader.vendorid=:vendorID";
+		String jpql = "Select p from Purchaseorderheader p where p.vendorid=:vendorID";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("vendorID", vendorId);
 		

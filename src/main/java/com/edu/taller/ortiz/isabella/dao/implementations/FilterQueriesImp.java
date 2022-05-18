@@ -27,8 +27,8 @@ public class FilterQueriesImp implements FilterQueries {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ArrayList findPohByDate(LocalDate startdate, LocalDate enddate) {
 
-		String jpql = "SELECT purchaseorderheader FROM Purchaseorderheader purchaseorderheader WHERE purchaseorderheader.orderdate >= :startdate AND purchaseorderheader.orderdate <= :enddate AND (Select count(pod) from Purchaseorderheader poh"
-				+ " WHERE pod.purchaseorderheader.purchaseorderid = poh.purchaseorderid AND pod.duedate >= :startdate AND pod.duedate <= :enddate) > 1 ORDER BY purchaseorderheader.orderdate ASC";
+		String jpql = "SELECT p FROM Purchaseorderheader p WHERE p.orderdate >= :startdate AND p.orderdate <= :enddate AND (Select count(pod) from Purchaseorderheader poh"
+				+ " WHERE pod.p.purchaseorderid = poh.purchaseorderid AND pod.duedate >= :startdate AND pod.duedate <= :enddate) > 1 ORDER BY p.orderdate ASC";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("startdate", startdate);
 		query.setParameter("enddate", enddate);
@@ -40,8 +40,6 @@ public class FilterQueriesImp implements FilterQueries {
 		result.add(suma);
 		return result;
 		
-//		te acuerda que materia dijo?
-//				cuanti
 
 	}
 	
@@ -50,7 +48,7 @@ public class FilterQueriesImp implements FilterQueries {
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<Purchaseorderheader> findPohByPod() {
-		String jpql = "SELECT purchaseorderheader FROM Purchaseorderheader purchaseorderheader WHERE SIZE(purchaseorderheader.purchaseorderdetail) > 2";
+		String jpql = "SELECT p FROM Purchaseorderheader p WHERE SIZE(p.purchaseorderdetail) > 2";
 		Query query = entityManager.createQuery(jpql);
 		return query.getResultList();
 	}

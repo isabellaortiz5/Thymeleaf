@@ -19,45 +19,29 @@ import com.edu.taller.ortiz.isabella.model.prchasing.Vendor;
 public class VendorDaoImp implements VendorDao{
 	
 	@PersistenceUnit
-	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
 	
 	@Override
 	public Vendor save(Vendor vendor) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		entityManager.persist(vendor);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		return vendor;
 	}
 	
 	@Override
 	public Vendor update(Vendor vendor) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		entityManager.merge(vendor);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		return vendor;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Integer vendorId) {
-		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		Vendor vendor = entityManager.find(Vendor.class, vendorId);
-		
-		entityManager.getTransaction().begin();
-		entityManager.remove(vendor);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		entityManager.remove(vendorId);
 	}
 
 	@Override
 	public Vendor findById(Integer vendorId) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select vendor from Vendor vendor where vendor.businessentityid=:id";
+		String jpql = "Select v from Vendor v where v.businessentityid=:id";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("id", vendorId);
 		
@@ -76,16 +60,14 @@ public class VendorDaoImp implements VendorDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Vendor> findAll() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String query = "Select vendor from Vendor vendor";
+		String query = "Select v from Vendor v";
 		return entityManager.createQuery(query).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Vendor> findByCreditrating(Integer creditrating) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select vendor from Vendor vendor where vendor.creditrating=:creditRating";
+		String jpql = "Select v from Vendor v where v.creditrating=:creditRating";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("creditRating", creditrating);
 		
@@ -95,8 +77,7 @@ public class VendorDaoImp implements VendorDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Vendor> findByName(String name) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select vendor from Vendor vendor where vendor.name=:name";
+		String jpql = "Select v from Vendor v where v.name=:name";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("name", name);
 		

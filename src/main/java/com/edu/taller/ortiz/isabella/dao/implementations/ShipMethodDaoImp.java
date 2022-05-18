@@ -17,32 +17,23 @@ import com.edu.taller.ortiz.isabella.model.prchasing.Shipmethod;
 public class ShipMethodDaoImp implements ShipMethodDao{
 	
 	@PersistenceUnit
-	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
 	
 	@Override
 	public Shipmethod save(Shipmethod shipmethod) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		entityManager.persist(shipmethod);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		return shipmethod;
 	}
 	
 	@Override
 	public Shipmethod update(Shipmethod shipmethod) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		entityManager.merge(shipmethod);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		return shipmethod;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Integer shipmethodId) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		Shipmethod shipmethod = entityManager.find(Shipmethod.class, shipmethodId);
 		entityManager.getTransaction().begin();
 		entityManager.remove(shipmethod);
@@ -53,8 +44,7 @@ public class ShipMethodDaoImp implements ShipMethodDao{
 
 	@Override
 	public Shipmethod findById(Integer shipmethodId) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select shipmethod from Shipmethod shipmethod where shipmethod.shipmethodid=:id";
+		String jpql = "Select s from Shipmethod s where s.shipmethodid=:id";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("id", shipmethodId);
 		
@@ -73,8 +63,7 @@ public class ShipMethodDaoImp implements ShipMethodDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Shipmethod> findAll() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String query = "Select shipmethod from Shipmethod shipmethod";
+		String query = "Select s from Shipmethod s";
 		return entityManager.createQuery(query).getResultList();
 	}
 	

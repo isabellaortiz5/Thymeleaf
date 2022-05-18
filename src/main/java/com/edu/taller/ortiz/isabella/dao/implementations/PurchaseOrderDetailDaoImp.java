@@ -22,44 +22,30 @@ import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderdetail;
 public class PurchaseOrderDetailDaoImp implements PurchaseOrderDetailDao{
 	
 	@PersistenceUnit
-	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
 	
 	@Override
 	public Purchaseorderdetail save(Purchaseorderdetail purchaseorderdetail) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		entityManager.persist(purchaseorderdetail);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		return purchaseorderdetail;
 	}
 	
 	
 	@Override
 	public Purchaseorderdetail update(Purchaseorderdetail purchaseorderdetail) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		entityManager.merge(purchaseorderdetail);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		return purchaseorderdetail;
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Integer purchaseorderdetailId) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		Purchaseorderdetail purchaseorderdetail = entityManager.find(Purchaseorderdetail.class, purchaseorderdetailId);
-		entityManager.getTransaction().begin();
-		entityManager.remove(purchaseorderdetail);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		entityManager.remove(purchaseorderdetailId);
 	}
 
 	@Override
 	public Purchaseorderdetail findById(Integer purchaseorderdetailId) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select purchaseorderdetail from Purchaseorderdetail purchaseorderdetail where purchaseorderdetail.shipmethodid=:id";
+		String jpql = "Select p from Purchaseorderdetail p where p.shipmethodid=:id";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("id", purchaseorderdetailId);
 		
@@ -78,16 +64,14 @@ public class PurchaseOrderDetailDaoImp implements PurchaseOrderDetailDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Purchaseorderdetail> findAll() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String query = "Select purchaseorderdetail from Purchaseorderdetail purchaseorderdetail";
+		String query = "Select p from Purchaseorderdetail p";
 		return entityManager.createQuery(query).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Purchaseorderdetail> findByUnitPrice(BigDecimal unitprice) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select purchaseorderdetail from Purchaseorderdetail purchaseorderdetail where purchaseorderdetail.unitprice=:unitPrice";
+		String jpql = "Select p from Purchaseorderdetail p where p.unitprice=:unitPrice";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("unitPrice", unitprice);	
 		
@@ -97,8 +81,7 @@ public class PurchaseOrderDetailDaoImp implements PurchaseOrderDetailDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Purchaseorderdetail> findByProductId(Integer productid) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "Select purchaseorderdetail from Purchaseorderdetail purchaseorderdetail where purchaseorderdetail.productid=:productID";
+		String jpql = "Select p from Purchaseorderdetail p where p.productid=:productID";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("productID", productid);	
 		

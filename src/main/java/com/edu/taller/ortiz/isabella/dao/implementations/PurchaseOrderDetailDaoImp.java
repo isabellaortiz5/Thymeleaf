@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
@@ -20,16 +21,17 @@ import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderdetail;
 @Scope("singleton") 
 public class PurchaseOrderDetailDaoImp implements PurchaseOrderDetailDao{
 	
-	@PersistenceUnit
+	@PersistenceContext
 	private EntityManager entityManager;
 	
+	@Transactional
 	@Override
 	public Purchaseorderdetail save(Purchaseorderdetail purchaseorderdetail) {
 		entityManager.persist(purchaseorderdetail);
 		return purchaseorderdetail;
 	}
 	
-	
+	@Transactional
 	@Override
 	public Purchaseorderdetail update(Purchaseorderdetail purchaseorderdetail) {
 		entityManager.merge(purchaseorderdetail);
@@ -39,14 +41,14 @@ public class PurchaseOrderDetailDaoImp implements PurchaseOrderDetailDao{
 	@Transactional
 	@Override
 	public void delete(Integer purchaseorderdetailId) {
-		entityManager.remove(purchaseorderdetailId);
+		Purchaseorderdetail pod = findById(purchaseorderdetailId);
+		entityManager.remove(pod);
 	}
 
 	@Override
 	public Purchaseorderdetail findById(Integer purchaseorderdetailId) {
-		String jpql = "Select p from Purchaseorderdetail p where p.shipmethodid=:id";
-		Query query = entityManager.createQuery(jpql);
-		query.setParameter("id", purchaseorderdetailId);
+//		String jpql = "Select p from Purchaseorderdetail p where p.id=:id";
+		Query query = entityManager.createQuery("Select p from Purchaseorderdetail p where p.purchaseorderid=:id").setParameter("id", purchaseorderdetailId);
 		
 		Purchaseorderdetail purchaseorderdetail = null;
 		

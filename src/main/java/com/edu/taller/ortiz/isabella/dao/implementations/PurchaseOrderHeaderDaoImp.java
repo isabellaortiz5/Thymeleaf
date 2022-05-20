@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
@@ -13,21 +14,24 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.taller.ortiz.isabella.dao.interfaces.PurchaseOrderHeaderDao;
+import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderdetail;
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderheader;
 
 @Repository
 @Scope("singleton") 
 public class PurchaseOrderHeaderDaoImp implements PurchaseOrderHeaderDao{
 	
-	@PersistenceUnit
+	@PersistenceContext
 	private EntityManager entityManager;
 	
+	@Transactional
 	@Override
 	public Purchaseorderheader save(Purchaseorderheader purchaseorderheader) {
 		entityManager.persist(purchaseorderheader);
 		return purchaseorderheader;
 	}
 	
+	@Transactional
 	@Override
 	public Purchaseorderheader update(Purchaseorderheader  purchaseorderheader) {
 		entityManager.merge(purchaseorderheader);
@@ -37,13 +41,14 @@ public class PurchaseOrderHeaderDaoImp implements PurchaseOrderHeaderDao{
 	@Transactional
 	@Override
 	public void delete(Integer purchaseorderheaderId) {
-		entityManager.remove(purchaseorderheaderId);
+		Purchaseorderheader poh = findById(purchaseorderheaderId);
+		entityManager.remove(poh);
 	}
 
 	@Override
 	public Purchaseorderheader findById(Integer purchaseorderheaderId) {
-		String jpql = "Select p from Purchaseorderheader p where p.purchaseorderid=:id";
-		Query query = entityManager.createQuery(jpql);
+//		String jpql = "Select p from Purchaseorderheader p where p.purchaseorderid=:id";
+		Query query = entityManager.createQuery("Select p from Purchaseorderheader p where p.purchaseorderid=:id");
 		query.setParameter("id", purchaseorderheaderId);
 		
 		Purchaseorderheader purchaseorderheader = null;

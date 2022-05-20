@@ -5,13 +5,16 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.taller.ortiz.isabella.dao.interfaces.PurchaseOrderDetailDao;
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderdetail;
 import com.edu.taller.ortiz.isabella.model.prchasing.Purchaseorderheader;
 import com.edu.taller.ortiz.isabella.repository.interfaces.PurchaseorderheaderRepository;
 import com.edu.taller.ortiz.isabella.service.interfaces.PurchaseorderdetailService;
+
 @Service
+@Transactional
 public class PurchaseorderdetailServiceImp implements PurchaseorderdetailService {
 
 //	private PurchaseorderdetailRepository dr;

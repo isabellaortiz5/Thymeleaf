@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.taller.ortiz.isabella.dao.interfaces.VendorDao;
 import com.edu.taller.ortiz.isabella.model.person.Businessentity;
@@ -12,6 +13,7 @@ import com.edu.taller.ortiz.isabella.repository.interfaces.BusinessentityReposit
 import com.edu.taller.ortiz.isabella.service.interfaces.VendorService;
 
 @Service
+@Transactional
 public class VendorServiceImp implements VendorService {
 
 	private VendorDao vd;

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.taller.ortiz.isabella.dao.interfaces.PurchaseOrderHeaderDao;
 import com.edu.taller.ortiz.isabella.model.hr.Employee;
@@ -15,6 +16,7 @@ import com.edu.taller.ortiz.isabella.repository.interfaces.PersonRepository;
 import com.edu.taller.ortiz.isabella.service.interfaces.PurchaseorderheaderService;
 
 @Service
+@Transactional
 public class PurchaseorderheaderServiceImp implements PurchaseorderheaderService {
 	private PurchaseOrderHeaderDao pohDAO;
 	private EmployeeRepository er;

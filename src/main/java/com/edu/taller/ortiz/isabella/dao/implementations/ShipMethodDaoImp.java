@@ -3,11 +3,12 @@ package com.edu.taller.ortiz.isabella.dao.implementations;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import com.edu.taller.ortiz.isabella.dao.interfaces.ShipMethodDao;
 import com.edu.taller.ortiz.isabella.model.prchasing.Shipmethod;
 
@@ -15,15 +16,17 @@ import com.edu.taller.ortiz.isabella.model.prchasing.Shipmethod;
 @Scope("singleton") 
 public class ShipMethodDaoImp implements ShipMethodDao{
 	
-	@PersistenceUnit
+	@PersistenceContext
 	private EntityManager entityManager;
 	
+	@Transactional
 	@Override
 	public Shipmethod save(Shipmethod shipmethod) {
 		entityManager.persist(shipmethod);
 		return shipmethod;
 	}
 	
+	@Transactional
 	@Override
 	public Shipmethod update(Shipmethod shipmethod) {
 		entityManager.merge(shipmethod);
@@ -33,12 +36,8 @@ public class ShipMethodDaoImp implements ShipMethodDao{
 	@Transactional
 	@Override
 	public void delete(Integer shipmethodId) {
-		Shipmethod shipmethod = entityManager.find(Shipmethod.class, shipmethodId);
-		entityManager.getTransaction().begin();
-		entityManager.remove(shipmethod);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		
+		Shipmethod s = findById(shipmethodId);
+		entityManager.remove(s);
 	}
 
 	@Override

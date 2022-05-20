@@ -3,6 +3,8 @@ package com.edu.taller.ortiz.isabella.service.implementations;
 import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.edu.taller.ortiz.isabella.dao.interfaces.ShipMethodDao;
 import com.edu.taller.ortiz.isabella.model.prchasing.Shipmethod;
 import com.edu.taller.ortiz.isabella.service.interfaces.ShipmethodService;
